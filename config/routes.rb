@@ -2,16 +2,14 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   namespace :v1 do 
-  	root 'products#index'
-
-  	resources :products
+    resources :products
   	resources :articles
   	resources :categories
 
-
-  	post 'products?category=', to: "products#index"
-  	post 'products/search', to: "products#search"
-
+  	#Search products name
+  	get 'products/search/:name', to: "products#search_product"
+  	#Search detail products
+  	get 'products/category/:name', to: "categories#search_category"
 
   end
 end

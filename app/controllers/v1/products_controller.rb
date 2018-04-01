@@ -1,39 +1,18 @@
 class V1::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
+  #GET /products/
   def index
-    if params[:category].blank?
-     @product = Product.all.order("created_at DESC")
-     render json: @product
-    else
-      @category_id = Category.find_by(category_name: params[:category_name]).id
-      @product = Product.where(category_id: @category_id).order("created_at DESC")
-
+    @product = Product.all
     render json: @product, status: :ok 
-    end
-
-    #@product = Product.all
-    #render json: @product, status: :ok 
   end
 
-
-  def search
-    @category = Category.where(category_name: params[:category_name]).id
-    @product = Product.where(category_id: @category).order("created_at DESC")
-    
-    # product.map do |val|
-    #   {
-    #     id: val.id,
-    #     name: val.name,
-    #   }
-     
-    render json: @product, status: :ok
-  end
-
+  #GET /products/1
   def show
   	render json: @product, status: :ok
   end
 
+  #DELETE /products/:id
   def destroy
     @product = Product.where(id: params[:id]).first
     if @product.destroy
@@ -43,6 +22,7 @@ class V1::ProductsController < ApplicationController
     end
   end
 
+  #PUT /products/1
   def update
   	if @product.update(product_params)
   	  render json: @product, status: :ok
@@ -51,6 +31,7 @@ class V1::ProductsController < ApplicationController
   	end
   end
 
+  #POST /products/ "json"
   def create
     @product = Product.new(product_params)
 
@@ -61,12 +42,19 @@ class V1::ProductsController < ApplicationController
   	end
   end
 
-  private 
+  #GET /products/search/:name
+  def search_product
+      @product = Product.joins(:category).where("products.product_name ilike ?", "%#{params[:name]}%")
+      render json: @product, status: :ok
+  end
 
+  private 
+  #User callback to share common setup or constraints betwen actions
   def set_product
   	@product = Product.find(params[:id])
   end
 
+  #only allow a trusted paramater "white list" through
   def product_params
   	params.require(:product).permit(:category_id, :product_name, :company, :description, :logo_img, :cover_img, :web_link, :gplay_link)
   end

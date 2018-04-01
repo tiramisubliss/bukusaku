@@ -15,6 +15,6 @@
 
 
 #Product.create({product_name: 'Tanihub', company: 'Tanihub', description: 'Tanihub adalah startup agrikultur', logo_img: 'http://tanihub.jpg', cover_img: 'http://tanihub.jpg', web_link: 'http:tanihub.id', gplay_link: 'playstore/tanihub.jpg'})
-#Product.create({category_id: 1, product_name: 'Angon', company: 'Angon', description: 'Angon adalah peternakan ', logo_img: 'http://angon.jpg', cover_img: 'http://angon.jpg', web_link: 'http://angon.id', gplay_link: 'playstore/angon.jpg'})
+Product.create({category_id: 4, product_name: 'bukalapak', company: 'bukalapak', description: 'bukalapak ', logo_img: 'http://bukalapak', cover_img: 'http://bukalapak.jpg', web_link: 'http://bukalapak.jpg', gplay_link: 'playstore/bukalapak'})
 
-Article.create({title: 'Angon startup Peternakan', content: 'angon adalah startup angon adalah startupangon adalah startup', image: 'http://angon.id/angon.jpg', reff_link: 'http://angon.id' })
+#Article.create({title: 'Angon startup Peternakan', content: 'angon adalah startup angon adalah startupangon adalah startup', image: 'http://angon.id/angon.jpg', reff_link: 'http://angon.id' })
