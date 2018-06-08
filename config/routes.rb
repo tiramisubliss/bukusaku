@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  root to: redirect('/admin')
   
-  namespace :v1 do 
-  	root 'products#index'
-
-  	resources :products
-  	resources :articles
-  	resources :categories
-
-
-  	post 'products?category=', to: "products#index"
-  	post 'products/search', to: "products#search"
-
-
+  devise_for :users
+  # resources :users
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources   :articles, :products, :categories, :enquiries
+      # Search products name
+      get 'products/search/:name', to: "products#search_product"
+      # Search detail products
+      get 'products/category/:name', to: "categories#search_category"
+    end
   end
 end
